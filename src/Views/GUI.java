@@ -89,7 +89,7 @@ public class GUI extends JFrame {
         bCargarExamen.setLocation(10, 10);
         bCrear = new JButton("Crear");
 
-        // falta esto:
+        // falta esto: //prueva para git
 
         lTiempo = new JLabel("tiempo");
         lInfo = new JLabel("informacion");
