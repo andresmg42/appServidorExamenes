@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controllers.Controlador;
 
@@ -53,9 +55,10 @@ public class GUI extends JFrame {
 
         add(pestañas);
 
-        gestionEventos gestion = new gestionEventos();
+        GestionEventos gestion = new GestionEventos();
         bCrear.addActionListener(gestion);
         bHExamen.addActionListener(gestion);
+        bCargarExamen.addActionListener(gestion);
 
     }
 
@@ -74,9 +77,8 @@ public class GUI extends JFrame {
         tNombre = new JTextField(20);
         tNombre.setSize(150, 20);
         tNombre.setLocation(120, 50);
-        tTiempo = new JTextField(20);
 
-        lRuta = new JLabel("nombre archivo");
+        lRuta = new JLabel();
         lRuta.setSize(150, 20);
         lRuta.setLocation(120, 10);
 
@@ -87,11 +89,26 @@ public class GUI extends JFrame {
         bCargarExamen = new JButton("Cargar");
         bCargarExamen.setSize(80, 20);
         bCargarExamen.setLocation(10, 10);
-        bCrear = new JButton("Crear");
 
         // falta esto: //prueva para git
 
-        lTiempo = new JLabel("tiempo");
+        lTiempo = new JLabel("tiempo:");
+        lTiempo.setSize(100, 20);
+        lTiempo.setLocation(10, 90);
+
+        tTiempo = new JTextField(20);
+        tTiempo.setSize(150, 20);
+        tTiempo.setLocation(120, 90);
+
+        bCrear = new JButton("Crear");
+        bCrear.setSize(80, 20);
+        bCrear.setLocation(10, 130);
+
+        fcEscojerExamen = new JFileChooser();
+        fcEscojerExamen.setCurrentDirectory(new File("src\\assets"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivoss de Texto (.txt)", "txt", "text");
+        fcEscojerExamen.setFileFilter(filter);
+
         lInfo = new JLabel("informacion");
 
         areaInfo = new JTextArea(5, 20);
@@ -100,6 +117,9 @@ public class GUI extends JFrame {
         pCargar.add(lRuta);
         pCargar.add(lNombre);
         pCargar.add(tNombre);
+        pCargar.add(lTiempo);
+        pCargar.add(tTiempo);
+        pCargar.add(bCrear);
         // pCargar.add(tRuta);
         // pCargarNombre.add(lNombre);
         // pCargarNombre.add(tNombre);
@@ -109,10 +129,11 @@ public class GUI extends JFrame {
         pContenedor1.add(pCargar);
         // pContenedor1.add(pCargarNombre);
         // pContenedor1.add(bCargarExamen);
-        pContenedor1.add(bCrear);
+        // pContenedor1.add(bCrear);
         pContenedor1.add(new JScrollPane(areaInfo));
         pestaña1.add(pContenedor1, BorderLayout.CENTER);
         pestañas.addTab("Cargar Examen", pestaña1);
+
     }
 
     public void iniciarPestaña2() {
@@ -129,6 +150,10 @@ public class GUI extends JFrame {
 
     }
 
+    public JFileChooser getFcEscojerExamen() {
+        return fcEscojerExamen;
+    }
+
     public JLabel getlInfo() {
         return lInfo;
     }
@@ -141,21 +166,32 @@ public class GUI extends JFrame {
         areaInfo2.append(mensaje);
     }
 
-    public class gestionEventos implements ActionListener {
+    public class GestionEventos implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == bCrear) {
-                Controlador.crearExamen();
-                int ultimoIndice = Controlador.Examenes.size() - 1;
-                System.out.println(Controlador.Examenes.get(0));
-                areaInfo.setText("examen creado con exito\n" + Controlador.Examenes.get(ultimoIndice).mostrarDatos());
+
+                if (!lRuta.getText().isEmpty() && !fcEscojerExamen.getSelectedFile().getPath().isEmpty()) {
+                    Controlador.crearExamen();
+                    int ultimoIndice = Controlador.Examenes.size() - 1;
+                    System.out.println(Controlador.Examenes.get(0));
+                    areaInfo.setText(
+                            "examen creado con exito\n" + Controlador.Examenes.get(ultimoIndice).mostrarDatos());
+
+                }
 
             }
             if (e.getSource() == bHExamen) {
-                // multi.enviarMensajeMulticast("\nhola desde boton");
-                // multi.enviarExamenMulticast(Controlador.Examenes.get(0));
+                System.out.println(multi.enviarMensajeMulticast("\nhola desde boton"));
 
             }
+            if (e.getSource() == bCargarExamen) {
+                if (fcEscojerExamen.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    if (fcEscojerExamen.getSelectedFile().exists())
+                        lRuta.setText(fcEscojerExamen.getSelectedFile().getName());
+                }
+            }
+
         }
 
     }

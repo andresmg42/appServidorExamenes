@@ -18,7 +18,8 @@ public class Controlador {
 
     public static void crearExamen() {
 
-        Examenes.add(new Examen(gui.tNombre.getText(), Integer.parseInt(gui.tTiempo.getText()), gui.tRuta.getText()));
+        Examenes.add(new Examen(gui.tNombre.getText(), Integer.parseInt(gui.tTiempo.getText()),
+                gui.getFcEscojerExamen().getSelectedFile().getPath()));
     }
 
     public void setExamen(Examen examen) {
