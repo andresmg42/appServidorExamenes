@@ -30,9 +30,8 @@ public class Controlador {
         }
     }
 
-    public static void main(String[] args) {
-        Controlador cont = new Controlador();
-
+    public Examen getExamen(int indice) {
+        return Examenes.get(indice);
     }
 
 }

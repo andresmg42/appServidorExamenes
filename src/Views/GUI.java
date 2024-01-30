@@ -182,7 +182,8 @@ public class GUI extends JFrame {
 
             }
             if (e.getSource() == bHExamen) {
-                System.out.println(multi.enviarMensajeMulticast("\nhola desde boton"));
+                System.out.println(multi.enviarMensajeMulticast(Controlador.Examenes.get(0).getContenido()));
+                System.out.println(Controlador.Examenes.get(0).getContenido());
 
             }
             if (e.getSource() == bCargarExamen) {

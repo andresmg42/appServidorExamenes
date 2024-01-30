@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Examen implements Serializable {
+public class Examen {
     private String nombre;
     private int tiempoDuracion;
     private List<String> listaIntegrantes;
@@ -20,6 +20,11 @@ public class Examen implements Serializable {
     private ArrayList<String> aux;
     private ArrayList<ArrayList<String>> listaPreguntas;
     private ArrayList<Pregunta> preguntas;
+    private String contenido;
+
+    public String getContenido() {
+        return contenido;
+    }
 
     public Examen() {
     }
@@ -37,7 +42,7 @@ public class Examen implements Serializable {
         FileReader fr;
         File archivo;
         String linea;
-        String contenido = "";
+        contenido = "";
 
         archivo = new File(rutaExamen);
 
@@ -161,5 +166,11 @@ public class Examen implements Serializable {
         }
         return resultado;
     }
+
+    // public static void main(String[] args) {
+    // Examen ex = new Examen("caca", 20, "src\\assets\\preguntas\\text.txt");
+    // ex.leerArchivo();
+    // System.out.println(ex.getContenido());
+    // }
 
 }

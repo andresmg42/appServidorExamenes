@@ -3,7 +3,7 @@ package Models;
 import java.io.Serializable;
 import java.util.List;
 
-public class Pregunta implements Serializable {
+public class Pregunta {
     public String getEnunciado() {
         return enunciado;
     }
