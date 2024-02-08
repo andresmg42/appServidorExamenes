@@ -167,10 +167,24 @@ public class Examen {
         return resultado;
     }
 
+    public String getPaqueteString() {
+        String paquete = "";
+        for (Pregunta p : preguntas) {
+            paquete += p.getEnunciado() + "," + p.getDescripcion() + "," + p.getListadoOpciones().get(0) + ","
+                    + p.getListadoOpciones().get(1) +
+                    "," + p.getListadoOpciones().get(2) + "," + p.getListadoOpciones().get(3) + ","
+                    + p.getOpcionCorrecta() + "," + p.getEstado() + ","
+                    + String.valueOf(p.getEsCorrecta()) + "," + p.getRespondidoPor() + "," + nombre + ","
+                    + String.valueOf(tiempoDuracion);
+        }
+        return paquete;
+
+    }
+
     // public static void main(String[] args) {
     // Examen ex = new Examen("caca", 20, "src\\assets\\preguntas\\text.txt");
     // ex.leerArchivo();
-    // System.out.println(ex.getContenido());
+    // System.out.println(ex.crearPaqueteString());
     // }
 
 }

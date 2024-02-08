@@ -20,11 +20,11 @@ public class Pregunta {
         return descripcion;
     }
 
-    private final String enunciado;
+    private String enunciado;
     private List<String> listadoOpciones;
-    private final String opcionCorrecta;
-    private final String descripcion;
-    private boolean estado;
+    private String opcionCorrecta;
+    private String descripcion;
+    private String estado;
     private String respondidoPor;
     private boolean esCorrecta;
 
@@ -33,16 +33,16 @@ public class Pregunta {
         this.listadoOpciones = listadoOpciones;
         this.opcionCorrecta = opcionCorrecta;
         this.descripcion = descripcion;
-        this.estado = false;
-        this.respondidoPor = "";
+        this.estado = "LIBRE";
+        this.respondidoPor = "defecto";
         this.esCorrecta = false;
     }
 
-    public boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -54,7 +54,7 @@ public class Pregunta {
         this.respondidoPor = respondidoPor;
     }
 
-    public boolean isEsCorrecta() {
+    public boolean getEsCorrecta() {
         return esCorrecta;
     }
 
